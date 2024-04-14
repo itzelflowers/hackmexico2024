@@ -1,7 +1,7 @@
 # Importar las librerías necesarias.
 import streamlit as st
 from st_pages import Page, show_pages, hide_pages
-from sections import login
+from sections import login, maps
 from utils.firebase import Firebase
 import pyrebase
 
@@ -71,6 +71,9 @@ st.set_page_config(
 
 # Iniciar Sesión.
 login.app()
+
+# Visualización de Mapa.
+maps.app()
 
 # Si hay usuario.
 if st.session_state['user_type'] != '':
