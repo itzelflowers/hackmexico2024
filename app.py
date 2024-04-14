@@ -3,7 +3,6 @@ import streamlit as st
 from st_pages import Page, show_pages, hide_pages
 from sections import login, maps
 from utils.firebase import Firebase
-import pyrebase
 
 
 def bussines_register():
@@ -40,7 +39,7 @@ def user_register():
     password = st.text_input('Contraseña', type='password')
     name = st.text_input('Nombre')
     last_name = st.text_input("Apellidos")
-    submit = st.button("Crear Empresa")
+    submit = st.button("Crear Usuario")
     # Enviar información.
     if submit:           
         db = Firebase().getdb()
@@ -62,6 +61,20 @@ def user_register():
         last_name = ''
 
 
+def register():
+    st.title("Registrate")
+    selected_option = st.radio("¿Qué tipo de usuario eres?", ("Cliente", "Empresa"))
+    if selected_option == 'Cliente':
+        user_register()
+    else:
+        bussines_register()
+
+
+def home():
+    st.title("Hidden Places")
+    maps.app()
+
+
 # Configuración de Streamlit.
 st.set_page_config(
     page_title="Hidden Places | Home",
@@ -72,20 +85,9 @@ st.set_page_config(
 # Iniciar Sesión.
 login.app()
 
-# Visualización de Mapa.
-maps.app()
-
 # Si hay usuario.
 if st.session_state['user_type'] != '':
     st.write(f'Tienes tipo de acceso: {st.session_state["user_type"]}')
-    if st.session_state['user_type'] == '':
-        pass
-    if st.session_state['user_type'] == '':
-        pass
+    home()
 else:
-    st.title("Registrate")
-    selected_option = st.radio("¿Qué tipo de usuario eres?", ("Cliente", "Empresa"))
-    if selected_option == 'Cliente':
-        user_register()
-    else:
-        bussines_register()
+    register()
