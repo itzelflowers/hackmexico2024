@@ -87,7 +87,6 @@ login.app()
 
 # Si hay usuario.
 if st.session_state['user_type'] != '':
-    st.write(f'Tienes tipo de acceso: {st.session_state["user_type"]}')
-    home()
+    pass
 else:
     register()

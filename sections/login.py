@@ -3,6 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
+from sections import register_places, home
 
 # Acceso a Firebase.
 db = Firebase().getdb()
@@ -58,6 +59,13 @@ def app():
             st.session_state['bss_type'] = db.child(st.session_state.ID).child('bss_type').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]}')
             st.sidebar.markdown(f'**Giro de la empresa**: {st.session_state["bss_type"]}')
+            if st.sidebar.button("Registrar Lugar"):
+                st.session_state.selection = "REGISTRO"
+            # Options.
+            if "selection" not in st.session_state:
+                register_places.app()
+            if st.session_state.selection == "REGISTRO":
+                register_places.app()
         else:
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
