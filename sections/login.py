@@ -146,8 +146,10 @@ def app():
                 user_home.app()
             elif st.session_state.selection == "HOME":
                 user_home.app()
-            elif st.session_state.selection == "VER_LUGARES":
-                see_places.app()
+            elif st.session_state.selection == "RECOMENDACIONES":
+                recomendaciones.app()
+            elif st.session_state.selection == "SECTORES":
+                sectores.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
 
         with st.sidebar:
