@@ -26,3 +26,4 @@ streamlit_folium==0.19.0
 urllib3==1.26.18
 webencodings==0.5.1
 xyzservices==2024.4.0
+streamlit_lottie==0.0.5

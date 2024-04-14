@@ -5,7 +5,7 @@ from utils.firebase_utils import login_session
 from utils.firebase import Firebase
 from sections import register_places, home, see_places, user_home, recomendaciones, sectores
 from streamlit_lottie import st_lottie
-from streamlit_option_menu import option_menu
+#from streamlit_option_menu import option_menu
 import json
 from sections.membership import display_rewards_table
 
