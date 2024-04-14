@@ -6,12 +6,13 @@ from utils.firebase import Firebase
 
 
 def bussines_register():
-    st.title("Registro de Empresas")
-    email = st.text_input('Correo Electrónico')
-    password = st.text_input('Contraseña', type='password')
-    name = st.text_input('Nombre Empresa')
-    bss_type = st.selectbox('Tipo de Empresa', ['Comida', 'Cultura', 'Entretenimiento'])
-    submit = st.button("Crear Empresa")
+    st.title("Business Registration 🏢")
+    email = st.text_input('📧 Email Address')
+    password = st.text_input('🔒 Password', type='password')
+    name = st.text_input('🏢 Business Name')
+    bss_type = st.selectbox('📊 Business Type', ['Food 🍔', 'Culture 🎭', 'Entertainment 🎮'])
+    submit = st.button("Create Business")
+
     # Enviar información.
     if submit:           
         db = Firebase().getdb()
