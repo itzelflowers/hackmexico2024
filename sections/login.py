@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, home, see_places, user_home, recomendaciones, sectores
+from sections import register_places, home, see_places, user_home, recomendaciones, sectores, visited_places
 from streamlit_lottie import st_lottie
 #from streamlit_option_menu import option_menu
 import json
@@ -136,7 +136,9 @@ def app():
             if st.sidebar.button("Recompensas"):
                 st.session_state.selection = "RECOMPENSAS"
             if st.sidebar.button("Recomendaciones"):
-                st.session_state.selection = "RECOMENDACIONES"                
+                st.session_state.selection = "RECOMENDACIONES"    
+            if st.sidebar.button("Lugares Visitados"):
+                st.session_state.selection = "VISITED"            
                 
             # Options.
             if "selection" not in st.session_state:
@@ -163,6 +165,8 @@ def app():
                 st_lottie(lottie_intro)
             elif st.session_state.selection == "RECOMPENSAS":
                 display_rewards_table()
+            elif st.session_state.selection == "VISITED":
+                visited_places.app()
             else:
                 user_home.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
