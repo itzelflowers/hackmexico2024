@@ -60,15 +60,29 @@ def app():
             st.sidebar.subheader(f'{st.session_state["name"]}')
             st.sidebar.markdown(f'**Giro de la empresa**: {st.session_state["bss_type"]}')
             if st.sidebar.button("Registrar Lugar"):
-                st.session_state.selection = "REGISTRO"
+                st.session_state.selection = "LUGARES"
+            if st.sidebar.button("Registrar Eventos"):
+                st.session_state.selection = "EVENTOS"
+            if st.sidebar.button("Ver Lugares"):
+                st.session_state.selection = "VER_LUGARES"
+            if st.sidebar.button("Ver Eventos"):
+                st.session_state.selection = "VER_EVENTOS"
             # Options.
             if "selection" not in st.session_state:
                 register_places.app()
-            if st.session_state.selection == "REGISTRO":
+            elif st.session_state.selection == "REGISTRAR":
+                register_places.app()
+            elif st.session_state.selection == "LUGARES":
+                register_places.app()
+            elif st.session_state.selection == "EVENTOS":
+                register_places.app()
+            elif st.session_state.selection == "VER_LUGARES":
+                register_places.app()
+            elif st.session_state.selection == "VER_EVENTOS":
                 register_places.app()
         else:
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
-        st.sidebar.markdown(f'**Tipo de usuario**: {st.session_state["user_type"]}')
+        
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)

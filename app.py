@@ -89,4 +89,9 @@ login.app()
 if st.session_state['user_type'] != '':
     pass
 else:
-    register()
+    if "selection" not in st.session_state:
+        home()
+        if st.button("Registrar"):
+            st.session_state.selection = "REGISTRAR"
+    elif st.session_state.selection == "REGISTRAR":
+        register()
