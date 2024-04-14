@@ -76,6 +76,8 @@ def home():
     maps.app()
 
 
+
+
 # Configuración de Streamlit.
 st.set_page_config(
     page_title="Hidden Places | Home",
