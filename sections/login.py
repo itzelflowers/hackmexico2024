@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, user_home, see_places, recomendaciones
+from sections import register_places, user_home, see_places, recomendaciones, sectores
 
 # Acceso a Firebase.
 db = Firebase().getdb()
@@ -93,4 +93,6 @@ def app():
                 user_home.app()
             elif st.session_state.selection == "RECOMENDACIONES":
                 recomendaciones.app()
+            elif st.session_state.selection == "SECTORES":
+                sectores.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
