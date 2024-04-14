@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, home, see_places
+from sections import register_places, home, see_places, user_home
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 import json
@@ -11,6 +11,18 @@ from sections.membership import display_rewards_table
 
 # Acceso a Firebase.
 db = Firebase().getdb()
+
+def obtener_datos_usuario():
+    # Aquí iría el código para conectarte a la base de datos y recuperar los datos
+    nombre = db.child(st.session_state['ID']).child('name').get().val()
+    apellido = db.child(st.session_state['ID']).child('last_name').get().val()
+    correo = db.child(st.session_state['ID']).child('email').get().val()
+    datos_usuario = {
+        "Nombre": nombre,
+        "Correo Electrónico": correo,
+        "Apellido": apellido
+    }
+    return datos_usuario
 
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as file:
@@ -47,6 +59,7 @@ def app():
             st.session_state['name'] = ''
             st.session_state['last_name'] = ''
         st.session_state['user_type'] = ''
+    
     
     button_css = """
     <style>
@@ -119,8 +132,13 @@ def app():
                 st.session_state.selection = "SECTORES"
             if st.sidebar.button("Recomendaciones"):
                 st.session_state.selection = "RECOMENDACIONES"
-            if st.sidebar.button("Pefil"):
-                st.session_state.selection = "PERFIL"
+            if st.sidebar.button("Perfil"):
+                datos_usuario = obtener_datos_usuario()
+                st.title("### Datos del Usuario")
+                st.write(f"**Nombre:** {datos_usuario['Nombre']}")
+                st.write(f"**Apellido:** {datos_usuario['Apellido']}")
+                st.write(f"**Correo Electrónico:** {datos_usuario['Correo Electrónico']}")
+                
             # Options.
             if "selection" not in st.session_state:
                 user_home.app()
