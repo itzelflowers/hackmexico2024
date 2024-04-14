@@ -114,13 +114,22 @@ def app():
             if st.sidebar.button("Recompensas"):
                 display_rewards_table()
             if st.sidebar.button("Inicio"):
-                st.session_state.selection = "LUGARES"
+                st.session_state.selection = "HOME"
             if st.sidebar.button("Sectores"):
-                st.session_state.selection = "EVENTOS"
+                st.session_state.selection = "SECTORES"
             if st.sidebar.button("Recomendaciones"):
-                st.session_state.selection = "VER_LUGARES"
+                st.session_state.selection = "RECOMENDACIONES"
             if st.sidebar.button("Pefil"):
-                st.session_state.selection = "VER_EVENTOS"
+                st.session_state.selection = "PERFIL"
+            # Options.
+            if "selection" not in st.session_state:
+                user_home.app()
+            elif st.session_state.selection == "REGISTRAR":
+                user_home.app()
+            elif st.session_state.selection == "HOME":
+                user_home.app()
+            elif st.session_state.selection == "VER_LUGARES":
+                see_places.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
 
         with st.sidebar:
