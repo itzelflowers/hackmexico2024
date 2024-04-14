@@ -84,5 +84,12 @@ def app():
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
-        
+            if st.sidebar.button("Inicio"):
+                st.session_state.selection = "LUGARES"
+            if st.sidebar.button("Sectores"):
+                st.session_state.selection = "EVENTOS"
+            if st.sidebar.button("Recomendaciones"):
+                st.session_state.selection = "VER_LUGARES"
+            if st.sidebar.button("Pefil"):
+                st.session_state.selection = "VER_EVENTOS"
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
