@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, home, see_places
+from sections import register_places, user_home, see_places
 
 # Acceso a Firebase.
 db = Firebase().getdb()
@@ -77,11 +77,20 @@ def app():
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
             if st.sidebar.button("Inicio"):
-                st.session_state.selection = "LUGARES"
+                st.session_state.selection = "HOME"
             if st.sidebar.button("Sectores"):
-                st.session_state.selection = "EVENTOS"
+                st.session_state.selection = "SECTORES"
             if st.sidebar.button("Recomendaciones"):
-                st.session_state.selection = "VER_LUGARES"
+                st.session_state.selection = "RECOMENDACIONES"
             if st.sidebar.button("Pefil"):
-                st.session_state.selection = "VER_EVENTOS"
+                st.session_state.selection = "PERFIL"
+            # Options.
+            if "selection" not in st.session_state:
+                user_home.app()
+            elif st.session_state.selection == "REGISTRAR":
+                user_home.app()
+            elif st.session_state.selection == "HOME":
+                user_home.app()
+            elif st.session_state.selection == "VER_LUGARES":
+                see_places.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
