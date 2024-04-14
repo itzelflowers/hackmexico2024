@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, home
+from sections import register_places, home, see_places
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 import json
@@ -95,12 +95,8 @@ def app():
             st.sidebar.markdown(f'**Giro de la empresa**: {st.session_state["bss_type"]}')
             if st.sidebar.button("Registrar Lugar"):
                 st.session_state.selection = "LUGARES"
-            if st.sidebar.button("Registrar Eventos"):
-                st.session_state.selection = "EVENTOS"
             if st.sidebar.button("Ver Lugares"):
                 st.session_state.selection = "VER_LUGARES"
-            if st.sidebar.button("Ver Eventos"):
-                st.session_state.selection = "VER_EVENTOS"
             
             # Options.
             if "selection" not in st.session_state:
@@ -109,12 +105,8 @@ def app():
                 register_places.app()
             elif st.session_state.selection == "LUGARES":
                 register_places.app()
-            elif st.session_state.selection == "EVENTOS":
-                register_places.app()
             elif st.session_state.selection == "VER_LUGARES":
-                register_places.app()
-            elif st.session_state.selection == "VER_EVENTOS":
-                register_places.app()
+                see_places.app()
         else:
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
