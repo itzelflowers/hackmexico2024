@@ -120,14 +120,36 @@ def app():
                 register_places.app()
             elif st.session_state.selection == "VER_LUGARES":
                 see_places.app()
+            else: 
+                register_places.app()
         else:
             
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
             if st.sidebar.button("Inicio"):
-                home.app()
+                st.session_state.selection = "INICIO"
             if st.sidebar.button("Perfil"):
+                st.session_state.selection = "PERFIL"
+            if st.sidebar.button("Sectores"):
+                st.session_state.selection = "SECTORES"
+            if st.sidebar.button("Recompensas"):
+                st.session_state.selection = "RECOMPENSAS"
+            if st.sidebar.button("Recomendaciones"):
+                st.session_state.selection = "RECOMENDACIONES"                
+                
+            # Options.
+            if "selection" not in st.session_state:
+                user_home.app()
+            elif st.session_state.selection == "REGISTRAR":
+                user_home.app()
+            elif st.session_state.selection == "INICIO":
+                user_home.app()
+            elif st.session_state.selection == "RECOMENDACIONES":
+                recomendaciones.app()
+            elif st.session_state.selection == "SECTORES":
+                sectores.app()
+            elif st.session_state.selection == "PERFIL":
                 datos_usuario = obtener_datos_usuario()
                 st.title("Datos del Usuario 📄")
                 st.write(f"**Nombre:** {datos_usuario['Nombre']} 👤")
@@ -139,30 +161,10 @@ def app():
                 # Mostrar esta animación en el cuerpo principal
                 lottie_intro = load_lottiefile("./img/place2.json") 
                 st_lottie(lottie_intro)
-                 
-                
-
-            if st.sidebar.button("Sectores"):
-                st.session_state.selection = "SECTORES"
-            if st.sidebar.button("Recompensas"):
+            elif st.session_state.selection == "RECOMPENSAS":
                 display_rewards_table()
-            if st.sidebar.button("Recomendaciones"):
-                st.session_state.selection = "RECOMENDACIONES"
-            
-
-                
-                
-            # Options.
-            if "selection" not in st.session_state:
+            else:
                 user_home.app()
-            elif st.session_state.selection == "REGISTRAR":
-                user_home.app()
-            elif st.session_state.selection == "HOME":
-                user_home.app()
-            elif st.session_state.selection == "RECOMENDACIONES":
-                recomendaciones.app()
-            elif st.session_state.selection == "SECTORES":
-                sectores.app()
         st.sidebar.button("Cerrar Sesión", on_click=logout_session)
 
         with st.sidebar:
