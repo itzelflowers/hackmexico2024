@@ -1,7 +1,7 @@
 # Importar las librerías necesarias.
 import streamlit as st
 from st_pages import Page, show_pages, hide_pages
-from sections import login, maps
+from sections import login, maps,home
 from utils.firebase import Firebase
 
 
@@ -71,9 +71,9 @@ def register():
         bussines_register()
 
 
-def home():
-    st.title("Hidden Places")
-    maps.app()
+#def home():
+#    st.title("Hidden Places")
+#    maps.app()
 
 
 # Configuración de Streamlit.
@@ -91,7 +91,7 @@ if st.session_state['user_type'] != '':
     pass
 else:
     if "selection" not in st.session_state:
-        home()
+        home.app()
         if st.button("Registrar"):
             st.session_state.selection = "REGISTRAR"
     elif st.session_state.selection == "REGISTRAR":

@@ -51,7 +51,7 @@ def plot_map(folium_map):
 def app():
     m = init_map()
     m = plot_map(m)
-    level1_map_data = st_folium(m)
-    st.session_state.selected_id = level1_map_data['last_object_clicked_tooltip']
+    folium_map = st_folium(m, width=700, height=500)  # Ajusta el tamaño del mapa según sea necesario
+    st.session_state.selected_id = folium_map['last_object_clicked_tooltip']
     if st.session_state.selected_id is not None:
         st.subheader(f'{st.session_state.selected_id}')

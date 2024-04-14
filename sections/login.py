@@ -85,8 +85,7 @@ def app():
         # st_lottie(lottie_intro)
         st.sidebar.image('img\logoconnombre.png', use_column_width=True, width=180)
         st.sidebar.title("Bienvenido")
-        if st.sidebar.button("Recompensas"):
-            display_rewards_table()
+        
         
         if st.session_state['user_type'] == 'bussines':
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
@@ -108,9 +107,12 @@ def app():
             elif st.session_state.selection == "VER_LUGARES":
                 see_places.app()
         else:
+            
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
+            if st.sidebar.button("Recompensas"):
+                display_rewards_table()
             if st.sidebar.button("Inicio"):
                 st.session_state.selection = "LUGARES"
             if st.sidebar.button("Sectores"):
