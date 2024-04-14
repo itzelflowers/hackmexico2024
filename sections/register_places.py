@@ -35,5 +35,5 @@ def app():
         db.child("Lugares").child(place).child('elevadores').set(elevadores)
         db.child("Lugares").child(place).child('asistencia').set(asistencia)
         db.child("Lugares").child(place).child('owner').set(st.session_state.ID)
-        st.success('La cuenta ha sido creada correctamente.')
+        st.success('El negocio ha sido creada correctamente.')
         st.balloons()
