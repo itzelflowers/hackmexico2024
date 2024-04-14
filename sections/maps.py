@@ -6,7 +6,8 @@ from streamlit_folium import st_folium
 import geopandas
 from shapely.geometry import LineString
 import folium
-
+from utils.firebase import Firebase
+db = Firebase().getdb()
 
 # Shapefile CDMX.
 lineas_cdmx = geopandas.read_file(('./shapefiles/poligonos_alcaldias_cdmx/poligonos_alcaldias_cdmx.shp'))
@@ -55,3 +56,22 @@ def app():
     st.session_state.selected_id = level1_map_data['last_object_clicked_tooltip']
     if st.session_state.selected_id is not None:
         st.subheader(f'{st.session_state.selected_id}')
+        lugares = db.child('Lugares').get().val()
+        for l in lugares:
+            lugar = db.child('Lugares').child(l).child('Location').get().val()
+            if st.session_state.selected_id == lugar:
+                location = db.child('Lugares').child(l).child('Location').get().val()
+                bss_type = db.child('Lugares').child(l).child('bss_type').get().val()
+                asistencia = db.child('Lugares').child(l).child('asistencia').get().val()
+                elevadores = db.child('Lugares').child(l).child('elevadores').get().val()
+                estacionamiento = db.child('Lugares').child(l).child('estacionamiento').get().val()
+                rampas = db.child('Lugares').child(l).child('rampas').get().val()
+                sillas_ruedas = db.child('Lugares').child(l).child('sillas_ruedas').get().val()
+                st.subheader(l)
+                st.write(f'Alcaldía: {location}')
+                st.write(f'Tipo de negocio: {bss_type}')
+                st.write(f'asistencia: {asistencia}')
+                st.write(f'asistencia: {elevadores}')
+                st.write(f'asistencia: {estacionamiento}')
+                st.write(f'asistencia: {rampas}')
+                st.write(f'asistencia: {sillas_ruedas}')
