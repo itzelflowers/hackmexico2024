@@ -46,10 +46,10 @@ def plot_map(folium_map):
         folium.GeoJson(row.geometry,
                         style_function=lambda x: {'fillColor': '#FF0000', 'color': '#000000', 'weight': 1.5, 'fillOpacity': 0.5},
                         tooltip=alcaldias[row['CVEGEO']]).add_to(folium_map)
-        folium.Marker(location=[row.centroide.y, row.centroide.x], tooltip=alcaldias[row['CVEGEO']]).add_to(folium_map)
     return folium_map
 
 def app():
+    st.title("Explora todos los lugares")
     m = init_map()
     m = plot_map(m)
     lugares = db.child('Lugares').get().val()
