@@ -3,7 +3,7 @@ import streamlit as st
 from utils.firebase_utils import login_session
 # Conexión a base de datos.
 from utils.firebase import Firebase
-from sections import register_places, home, see_places, user_home
+from sections import register_places, home, see_places, user_home, recomendaciones, sectores
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 import json
@@ -21,6 +21,7 @@ def obtener_datos_usuario():
         "Nombre": nombre,
         "Correo Electrónico": correo,
         "Apellido": apellido
+        
     }
     return datos_usuario
 
@@ -124,20 +125,32 @@ def app():
             st.session_state['name'] = db.child(st.session_state.ID).child('name').get().val()
             st.session_state['last_name'] = db.child(st.session_state.ID).child('last_name').get().val()
             st.sidebar.subheader(f'{st.session_state["name"]} {st.session_state["last_name"]}')
-            if st.sidebar.button("Recompensas"):
-                display_rewards_table()
             if st.sidebar.button("Inicio"):
-                st.session_state.selection = "HOME"
-            if st.sidebar.button("Sectores"):
-                st.session_state.selection = "SECTORES"
-            if st.sidebar.button("Recomendaciones"):
-                st.session_state.selection = "RECOMENDACIONES"
+                home.app()
             if st.sidebar.button("Perfil"):
                 datos_usuario = obtener_datos_usuario()
-                st.title("### Datos del Usuario")
-                st.write(f"**Nombre:** {datos_usuario['Nombre']}")
-                st.write(f"**Apellido:** {datos_usuario['Apellido']}")
-                st.write(f"**Correo Electrónico:** {datos_usuario['Correo Electrónico']}")
+                st.title("Datos del Usuario 📄")
+                st.write(f"**Nombre:** {datos_usuario['Nombre']} 👤")
+                st.write(f"**Apellido:** {datos_usuario['Apellido']} 👥")
+                st.write(f"**Correo Electrónico:** {datos_usuario['Correo Electrónico']} 📧")
+                st.write(f"**Tipo de Usuario:** {st.session_state['user_type']} 🛂")
+                st.write(f"**ID:** {st.session_state['ID']} 🔖")
+                st.write("Usuario desde: 14 de Abril de 2024 📅")
+                # Mostrar esta animación en el cuerpo principal
+                lottie_intro = load_lottiefile("img\\place2.json") 
+                st_lottie(lottie_intro)
+                 
+                
+
+            if st.sidebar.button("Sectores"):
+                st.session_state.selection = "SECTORES"
+            if st.sidebar.button("Recompensas"):
+                display_rewards_table()
+            if st.sidebar.button("Recomendaciones"):
+                st.session_state.selection = "RECOMENDACIONES"
+            
+
+                
                 
             # Options.
             if "selection" not in st.session_state:
@@ -154,3 +167,4 @@ def app():
 
         with st.sidebar:
             st_lottie(lottie_intro) 
+

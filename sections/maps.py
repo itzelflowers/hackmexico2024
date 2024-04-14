@@ -71,10 +71,10 @@ def app():
                 st.write(f'Alcaldía: {location}')
                 st.write(f'Tipo de negocio: {bss_type}')
                 st.write(f'asistencia: {asistencia}')
-                st.write(f'asistencia: {elevadores}')
-                st.write(f'asistencia: {estacionamiento}')
-                st.write(f'asistencia: {rampas}')
-                st.write(f'asistencia: {sillas_ruedas}')
+                st.write(f'elevadores: {elevadores}')
+                st.write(f'estacionamiento: {estacionamiento}')
+                st.write(f'rampas: {rampas}')
+                st.write(f'sillas_ruedas: {sillas_ruedas}')
 
 #
 #import streamlit as st
