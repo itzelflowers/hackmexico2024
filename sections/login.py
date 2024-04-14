@@ -80,14 +80,14 @@ def app():
 
     # Información de login.
     if not st.session_state['signedout']:
-        st.sidebar.image('img\logoconnombre.png', use_column_width=True, width=180)
+        st.sidebar.image('./img/logoconnombre.png', use_column_width=True, width=180)
         st.sidebar.title("Inicio de Sesión") 
         st.sidebar.write("Inicia Sesión para ver más características")
         text_email = st.sidebar.text_input('Correo Electrónico', key='email')
         text_password = st.sidebar.text_input('Contraseña', type='password', key='password')
         # Enviar información.
         st.sidebar.button("Iniciar Sesión", on_click=login_session, args=(text_email, text_password))
-        lottie_intro = load_lottiefile("img\\similo3.json")
+        lottie_intro = load_lottiefile("./img/similo3.json")
 
         # Mostrar la animación Lottie en la barra lateral
         with st.sidebar:
@@ -95,9 +95,9 @@ def app():
 
     # Sesión Iniciada.
     if st.session_state['signout']:
-        lottie_intro = load_lottiefile("img\\similo3.json") 
+        lottie_intro = load_lottiefile("./img/similo3.json") 
         # st_lottie(lottie_intro)
-        st.sidebar.image('img\logoconnombre.png', use_column_width=True, width=180)
+        st.sidebar.image('./img/logoconnombre.png', use_column_width=True, width=180)
         st.sidebar.title("Bienvenido")
         
         
@@ -137,7 +137,7 @@ def app():
                 st.write(f"**ID:** {st.session_state['ID']} 🔖")
                 st.write("Usuario desde: 14 de Abril de 2024 📅")
                 # Mostrar esta animación en el cuerpo principal
-                lottie_intro = load_lottiefile("img\\place2.json") 
+                lottie_intro = load_lottiefile("./img/place2.json") 
                 st_lottie(lottie_intro)
                  
                 
