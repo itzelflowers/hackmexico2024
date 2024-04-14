@@ -1,26 +1,10 @@
 # Importar las librerías necesarias.
 import streamlit as st
+from st_pages import Page, show_pages, hide_pages
+from sections import login
 from utils.firebase import Firebase
 import pyrebase
 
-config = {
-    'apiKey': "AIzaSyCGw0yokHwaEgWWNc1OGDo-8Iwk8_p5R6Q",
-    'authDomain': "hackmexico2-784a3.firebaseapp.com",
-    'databaseURL': "https://hackmexico2-784a3-default-rtdb.firebaseio.com",
-    'projectId': "hackmexico2-784a3",
-    'storageBucket': "hackmexico2-784a3.appspot.com",
-    'messagingSenderId': "499824700976",
-    'appId': "1:499824700976:web:75ce309870353aa99c07f5",
-    'measurementId': "G-E3R7BYY22N"
-}
-
-
-# Configuración de Streamlit.
-st.set_page_config(
-    page_title="Hidden Places | Registro",
-    page_icon="🗺️",
-    initial_sidebar_state="expanded",
-)
 
 def bussines_register():
     st.title("Registro de Empresas")
@@ -37,6 +21,7 @@ def bussines_register():
         db.child(user['localId']).child('ID').set(user['localId'])
         db.child(user['localId']).child('email').set(email)
         db.child(user['localId']).child('password').set(password)
+        db.child(user['localId']).child('user_type').set('bussines')
         db.child(user['localId']).child('name').set(name)
         db.child(user['localId']).child('bss_type').set(bss_type)
         st.success('La cuenta ha sido creada correctamente.')
@@ -48,13 +33,13 @@ def bussines_register():
         name = ''
         bss_type = ''
 
+
 def user_register():
     st.title("Registro de Usuarios")
     email = st.text_input('Correo Electrónico')
     password = st.text_input('Contraseña', type='password')
     name = st.text_input('Nombre')
     last_name = st.text_input("Apellidos")
-    bss_type = st.checkbox()
     submit = st.button("Crear Empresa")
     # Enviar información.
     if submit:           
@@ -64,8 +49,9 @@ def user_register():
         db.child(user['localId']).child('ID').set(user['localId'])
         db.child(user['localId']).child('email').set(email)
         db.child(user['localId']).child('password').set(password)
+        db.child(user['localId']).child('user_type').set('client')
         db.child(user['localId']).child('name').set(name)
-        db.child(user['localId']).child('bss_type').set(bss_type)
+        db.child(user['localId']).child('last_name').set(last_name)
         st.success('La cuenta ha sido creada correctamente.')
         st.balloons()
 
@@ -73,7 +59,30 @@ def user_register():
         email = ''
         password = ''
         name = ''
-        bss_type = ''
+        last_name = ''
 
 
-bussines_register()
+# Configuración de Streamlit.
+st.set_page_config(
+    page_title="Hidden Places | Home",
+    page_icon="🗺️",
+    initial_sidebar_state="expanded",
+)
+
+# Iniciar Sesión.
+login.app()
+
+# Si hay usuario.
+if st.session_state['user_type'] != '':
+    st.write(f'Tienes tipo de acceso: {st.session_state["user_type"]}')
+    if st.session_state['user_type'] == '':
+        pass
+    if st.session_state['user_type'] == '':
+        pass
+else:
+    st.title("Registrate")
+    selected_option = st.radio("¿Qué tipo de usuario eres?", ("Cliente", "Empresa"))
+    if selected_option == 'Cliente':
+        user_register()
+    else:
+        bussines_register()
